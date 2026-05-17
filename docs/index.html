@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>NewClauder — A friendly Claude Code onboarding tour</title>
+  <meta name="description" content="A free, role-aware onboarding tour for people brand-new to Claude Code. Built for IT and InfoSec professionals new to AI agents.">
+  <meta property="og:title" content="NewClauder — Friendly Claude Code onboarding">
+  <meta property="og:description" content="Free, open-source plugin. Walks IT/InfoSec newcomers through their first Claude Code session in about 15 minutes.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://botz-pillar.github.io/NewClauder/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#0a0612',
+            'canvas-2': '#14091f',
+            'canvas-3': '#1e1230',
+            primary: '#a78bfa',
+            'primary-bright': '#c4a8ff',
+            'primary-deep': '#7c3aed',
+            ink: '#f4f0ff',
+            'ink-muted': '#a89bc4',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    html, body { background: #0a0612; color: #f4f0ff; }
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    .ambient-glow {
+      background: radial-gradient(ellipse at 50% 0%, rgba(124,58,237,0.22) 0%, rgba(124,58,237,0.06) 35%, transparent 65%);
+    }
+    .splat-mark {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .splat-mark .arm {
+      position: absolute;
+      width: 64px;
+      height: 12px;
+      border-radius: 6px;
+      background: linear-gradient(90deg, transparent 0%, #a78bfa 16%, #c4a8ff 50%, #a78bfa 84%, transparent 100%);
+      box-shadow: 0 0 14px rgba(196,168,255,0.5);
+    }
+    .splat-mark .arm.a1 { transform: rotate(0deg); }
+    .splat-mark .arm.a2 { transform: rotate(45deg); }
+    .splat-mark .arm.a3 { transform: rotate(90deg); }
+    .splat-mark .arm.a4 { transform: rotate(135deg); }
+    .splat-mark .core {
+      position: absolute;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #fff 0%, #e5d8ff 50%, transparent 100%);
+      box-shadow: 0 0 12px rgba(255,255,255,0.7);
+    }
+    .splat-mark.lg { width: 140px; height: 140px; }
+    .splat-mark.lg .arm { width: 110px; height: 22px; border-radius: 11px; }
+    .splat-mark.lg .core { width: 28px; height: 28px; }
+    /* Copy button feedback */
+    .copy-btn.copied { background: #7c3aed !important; color: white !important; }
+    /* Anchor offset for sticky header */
+    h2[id], h3[id] { scroll-margin-top: 96px; }
+    a { transition: color 120ms ease, opacity 120ms ease; }
+    code { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.9em; }
+    .prose-section p { line-height: 1.7; }
+    .prose-section a { color: #c4a8ff; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(196,168,255,0.4); }
+    .prose-section a:hover { text-decoration-color: #c4a8ff; }
+  </style>
+</head>
+<body class="antialiased">
+  <!-- Ambient glow background -->
+  <div class="ambient-glow fixed inset-0 pointer-events-none -z-10"></div>
+
+  <!-- Sticky header -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-canvas/70 border-b border-primary/10">
+    <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#top" class="flex items-center gap-3">
+        <span class="splat-mark" aria-hidden="true">
+          <span class="arm a1"></span>
+          <span class="arm a2"></span>
+          <span class="arm a3"></span>
+          <span class="arm a4"></span>
+          <span class="core"></span>
+        </span>
+        <span class="text-xl font-bold tracking-tight">NewClauder</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-7 text-sm text-ink-muted">
+        <a href="#install" class="hover:text-ink">Install</a>
+        <a href="#what-it-does" class="hover:text-ink">What it does</a>
+        <a href="#cost" class="hover:text-ink">Cost</a>
+        <a href="#safety" class="hover:text-ink">Safety</a>
+        <a href="https://github.com/botz-pillar/NewClauder" class="text-primary-bright hover:text-ink">GitHub →</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="top" class="relative px-6 pt-20 pb-24 md:pt-32 md:pb-32">
+    <div class="max-w-4xl mx-auto text-center">
+      <div class="flex justify-center mb-8">
+        <span class="splat-mark lg" aria-hidden="true">
+          <span class="arm a1"></span>
+          <span class="arm a2"></span>
+          <span class="arm a3"></span>
+          <span class="arm a4"></span>
+          <span class="core"></span>
+        </span>
+      </div>
+      <h1 class="text-5xl md:text-7xl font-black tracking-tight leading-[0.95] mb-6">
+        Brand new to Claude Code?
+        <span class="text-primary-bright block mt-2">NewClauder walks you through it.</span>
+      </h1>
+      <p class="text-lg md:text-xl text-ink-muted max-w-2xl mx-auto leading-relaxed">
+        A friendly, role-aware onboarding tour for IT and InfoSec folks meeting Claude Code for the first time.
+        Free. Open source. About 15 minutes from install to your first useful session.
+      </p>
+      <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <a href="#install" class="px-6 py-3 rounded-lg bg-primary text-canvas font-semibold hover:bg-primary-bright transition-colors">
+          Install in 2 commands
+        </a>
+        <a href="https://github.com/botz-pillar/NewClauder" class="px-6 py-3 rounded-lg border border-primary/30 text-ink hover:bg-primary/10 transition-colors">
+          Read the source →
+        </a>
+      </div>
+      <p class="mt-8 text-sm text-ink-muted">
+        Released under MIT. Made by <a href="https://github.com/botz-pillar" class="text-primary-bright hover:text-ink">Josh Botz</a>
+        / <a href="https://www.skool.com/cloud-security-lab" class="text-primary-bright hover:text-ink">AI Cloud Security Lab</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- IS THIS FOR YOU? -->
+  <section class="px-6 py-16 border-t border-primary/10">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-6">Is this for you?</h2>
+      <p class="text-ink-muted mb-6">Check any of these:</p>
+      <ul class="space-y-3 text-lg">
+        <li class="flex items-start gap-3">
+          <span class="text-primary-bright mt-1">▸</span>
+          <span>You just installed Claude Code (or are about to) and don't know where to start.</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-primary-bright mt-1">▸</span>
+          <span>You work in IT, security, compliance, or somewhere adjacent.</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-primary-bright mt-1">▸</span>
+          <span>You've heard "AI agents are a big deal" but every tutorial assumes you're a developer.</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-primary-bright mt-1">▸</span>
+          <span>You're worried about pasting the wrong thing into the wrong tool.</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-primary-bright mt-1">▸</span>
+          <span>You don't have a GitHub account or anything special installed and that has been a blocker.</span>
+        </li>
+      </ul>
+      <p class="mt-6 text-ink-muted">Any of those hit? Keep reading — this is built for you.</p>
+    </div>
+  </section>
+
+  <!-- WHAT IT DOES -->
+  <section id="what-it-does" class="px-6 py-16 border-t border-primary/10">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-8">What you'll actually do</h2>
+      <p class="text-lg text-ink-muted mb-10 max-w-2xl">Concrete, not abstract. By tomorrow morning you could be doing things like:</p>
+      <div class="grid gap-5 md:grid-cols-2">
+        <div class="bg-canvas-2 border border-primary/20 rounded-xl p-6">
+          <div class="text-primary-bright text-sm font-semibold uppercase tracking-widest mb-3">SOC / Security Ops</div>
+          <p class="text-ink leading-relaxed">Paste a phishing email — Claude pulls the indicators, drafts a verdict paragraph, saves the analysis to a file.</p>
+        </div>
+        <div class="bg-canvas-2 border border-primary/20 rounded-xl p-6">
+          <div class="text-primary-bright text-sm font-semibold uppercase tracking-widest mb-3">GRC / Compliance</div>
+          <p class="text-ink leading-relaxed">Turn an auditor's findings PDF into a remediation tracker with owner, severity, due date, and evidence needed.</p>
+        </div>
+        <div class="bg-canvas-2 border border-primary/20 rounded-xl p-6">
+          <div class="text-primary-bright text-sm font-semibold uppercase tracking-widest mb-3">IT / Sysadmin</div>
+          <p class="text-ink leading-relaxed">Generate a Mermaid network diagram from a folder of router config exports, ready to paste into Confluence.</p>
+        </div>
+        <div class="bg-canvas-2 border border-primary/20 rounded-xl p-6">
+          <div class="text-primary-bright text-sm font-semibold uppercase tracking-widest mb-3">Helpdesk → Security</div>
+          <p class="text-ink leading-relaxed">Turn your CTF notes into a portfolio-worthy GitHub writeup — narrating every git step so you actually learn what's happening.</p>
+        </div>
+      </div>
+      <p class="mt-8 text-ink-muted text-base">The tour picks one task matched to your role and walks you through it live — teaching the concepts as the work happens.</p>
+    </div>
+  </section>
+
+  <!-- COST (UPFRONT) -->
+  <section id="cost" class="px-6 py-16 border-t border-primary/10 bg-canvas-2/30">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Heads up: Claude Code requires a paid Anthropic plan</h2>
+      <p class="text-lg text-ink-muted mb-8">Disclosing this before you create an account, because it matters. NewClauder itself is free and MIT-licensed — the underlying tool is not.</p>
+      <div class="space-y-4">
+        <div class="bg-canvas-2 border border-primary/30 rounded-xl p-6 flex flex-col md:flex-row md:items-start gap-4 md:gap-6">
+          <div class="md:w-40 shrink-0">
+            <div class="text-primary-bright font-bold text-xl">Claude Pro</div>
+            <div class="text-2xl font-extrabold mt-1">~$20<span class="text-base text-ink-muted">/mo</span></div>
+          </div>
+          <div class="flex-1">
+            <p class="text-ink leading-relaxed"><strong class="text-primary-bright">Start here.</strong> Plenty for learning, light or moderate daily use, most personal projects. You can upgrade later.</p>
+          </div>
+        </div>
+        <div class="bg-canvas-2 border border-primary/15 rounded-xl p-6 flex flex-col md:flex-row md:items-start gap-4 md:gap-6">
+          <div class="md:w-40 shrink-0">
+            <div class="text-ink font-semibold text-lg">Claude Max</div>
+            <div class="text-xl font-bold mt-1">~$100<span class="text-base text-ink-muted">/mo+</span></div>
+          </div>
+          <div class="flex-1">
+            <p class="text-ink-muted leading-relaxed">For people using Claude Code as a daily driver. Substantially higher limits. Not where beginners should start.</p>
+          </div>
+        </div>
+        <div class="bg-canvas-2 border border-primary/15 rounded-xl p-6 flex flex-col md:flex-row md:items-start gap-4 md:gap-6">
+          <div class="md:w-40 shrink-0">
+            <div class="text-ink font-semibold text-lg">API credits</div>
+            <div class="text-base text-ink-muted mt-1">pay-as-you-go</div>
+          </div>
+          <div class="flex-1">
+            <p class="text-ink-muted leading-relaxed">Useful if you want to meter usage by tokens rather than commit to a subscription. Skip unless you already know you prefer this model.</p>
+          </div>
+        </div>
+      </div>
+      <div class="mt-8 p-6 rounded-xl border border-primary/20 bg-primary/5">
+        <p class="text-ink leading-relaxed">
+          <strong>Want to feel out the vibe before paying?</strong> Try the free chat at
+          <a href="https://claude.ai" class="text-primary-bright hover:text-ink underline underline-offset-3">claude.ai</a>
+          first — ask it real questions from your job and see how it thinks. The free plan won't run Claude Code (the agent on your machine), but it's the same brain. If you like the conversation, the paid plan unlocks the hands.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTALL -->
+  <section id="install" class="px-6 py-16 border-t border-primary/10">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Install</h2>
+      <p class="text-lg text-ink-muted mb-10">
+        Once you have Claude Code installed and signed in. Two commands. <strong class="text-ink">Run them one at a time</strong> — first one, wait for confirmation, then the second.
+      </p>
+
+      <div class="space-y-6">
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <div class="text-sm text-ink-muted font-semibold tracking-wider uppercase">1. Add the marketplace</div>
+            <button class="copy-btn text-xs px-3 py-1.5 rounded bg-primary/10 border border-primary/30 text-primary-bright hover:bg-primary/20 transition-colors" data-clipboard="/plugin marketplace add botz-pillar/NewClauder">Copy</button>
+          </div>
+          <pre class="bg-canvas-3 border border-primary/20 rounded-lg p-4 overflow-x-auto"><code class="text-primary-bright">/plugin marketplace add botz-pillar/NewClauder</code></pre>
+          <p class="mt-2 text-sm text-ink-muted">You should see: <em>Marketplace 'NewClauder' added.</em> If you see anything else, copy the message and paste it back to Claude with "what does this mean?" — Claude is excellent at decoding its own errors.</p>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <div class="text-sm text-ink-muted font-semibold tracking-wider uppercase">2. Install the plugin</div>
+            <button class="copy-btn text-xs px-3 py-1.5 rounded bg-primary/10 border border-primary/30 text-primary-bright hover:bg-primary/20 transition-colors" data-clipboard="/plugin install new-clauder@new-clauder">Copy</button>
+          </div>
+          <pre class="bg-canvas-3 border border-primary/20 rounded-lg p-4 overflow-x-auto"><code class="text-primary-bright">/plugin install new-clauder@new-clauder</code></pre>
+          <p class="mt-2 text-sm text-ink-muted"><em>Yes, the name really is repeated — that's the install format: <code>marketplace-name@plugin-name</code>, and I named both the same.</em></p>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <div class="text-sm text-ink-muted font-semibold tracking-wider uppercase">3. Start the tour</div>
+            <button class="copy-btn text-xs px-3 py-1.5 rounded bg-primary/10 border border-primary/30 text-primary-bright hover:bg-primary/20 transition-colors" data-clipboard="I'm new to Claude Code, walk me through it">Copy</button>
+          </div>
+          <pre class="bg-canvas-3 border border-primary/20 rounded-lg p-4 overflow-x-auto"><code class="text-ink">I'm new to Claude Code, walk me through it</code></pre>
+          <p class="mt-2 text-sm text-ink-muted">Or any natural variation. The tour picks up from there.</p>
+        </div>
+      </div>
+
+      <p class="mt-10 text-sm text-ink-muted">
+        Pasted both commands at once? You'll see an error like <code>is not a valid repository name</code>. Re-run them one at a time. Welcome to slash-command quirks.
+      </p>
+    </div>
+  </section>
+
+  <!-- SAFETY -->
+  <section id="safety" class="px-6 py-16 border-t border-primary/10 bg-canvas-2/30">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">What this means for your machine</h2>
+      <p class="text-lg text-ink-muted mb-8">The honest version, in three plain-English points. Because Claude Code can run commands and edit files on your computer, the safety story matters more than the marketing story.</p>
+      <div class="space-y-6 prose-section">
+        <div>
+          <h3 class="text-xl font-bold text-primary-bright mb-2">1. Approved commands run with your user's full permissions.</h3>
+          <p class="text-ink-muted">Same as if you typed them yourself. Approving <code>rm -rf</code> deletes files. Approving "curl this and pipe to bash" runs whatever that script says. There's no sandbox between Claude and your filesystem — the approval prompt <em>is</em> the safety layer. Read the proposed command before you say yes.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-primary-bright mb-2">2. Prompt injection is a real risk.</h3>
+          <p class="text-ink-muted">Claude reads file content and web pages as both data <strong>and</strong> instructions. A malicious README, log entry, or webpage can try to redirect Claude into taking actions you didn't ask for. This is the defining new threat class for agentic AI tools. <strong>The tell:</strong> if Claude proposes an action that doesn't match what you originally asked for after it just read a file or visited a URL, stop and check before approving.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-primary-bright mb-2">3. Plan mode is your training wheels — and your incident-response posture.</h3>
+          <p class="text-ink-muted">Type <code>/permissions</code> and switch to plan mode. Claude can look at things and propose ideas, but it can't change anything until you flip it back. Recommended for your first session and any session pointed at unfamiliar data.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT YOU DO NOT NEED -->
+  <section class="px-6 py-16 border-t border-primary/10">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">What you do NOT need to learn first</h2>
+      <p class="text-lg text-ink-muted mb-8">Things people <em>think</em> they need before starting. They don't.</p>
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        <div class="px-4 py-3 rounded-lg bg-canvas-2 border border-primary/15 text-ink-muted text-center">The terminal</div>
+        <div class="px-4 py-3 rounded-lg bg-canvas-2 border border-primary/15 text-ink-muted text-center">Git or GitHub</div>
+        <div class="px-4 py-3 rounded-lg bg-canvas-2 border border-primary/15 text-ink-muted text-center">Python or any language</div>
+        <div class="px-4 py-3 rounded-lg bg-canvas-2 border border-primary/15 text-ink-muted text-center">Docker</div>
+        <div class="px-4 py-3 rounded-lg bg-canvas-2 border border-primary/15 text-ink-muted text-center">Regular expressions</div>
+        <div class="px-4 py-3 rounded-lg bg-canvas-2 border border-primary/15 text-ink-muted text-center">"AI prompt engineering"</div>
+      </div>
+      <p class="mt-8 text-ink-muted">Pick those up later, on demand, when a real task forces you into them. Day one, you just need to type and read.</p>
+    </div>
+  </section>
+
+  <!-- CTA / FOOTER -->
+  <section class="px-6 py-20 border-t border-primary/10">
+    <div class="max-w-3xl mx-auto text-center">
+      <div class="flex justify-center mb-6">
+        <span class="splat-mark" aria-hidden="true">
+          <span class="arm a1"></span>
+          <span class="arm a2"></span>
+          <span class="arm a3"></span>
+          <span class="arm a4"></span>
+          <span class="core"></span>
+        </span>
+      </div>
+      <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">Ready to take the tour?</h2>
+      <p class="text-lg text-ink-muted mb-8">The repo, the source, the changelog, and the issue tracker all live on GitHub.</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="https://github.com/botz-pillar/NewClauder" class="px-6 py-3 rounded-lg bg-primary text-canvas font-semibold hover:bg-primary-bright transition-colors">github.com/botz-pillar/NewClauder</a>
+        <a href="mailto:josh@pillarsecurity.io" class="px-6 py-3 rounded-lg border border-primary/30 text-ink hover:bg-primary/10 transition-colors">Email feedback →</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="px-6 py-10 border-t border-primary/10 text-sm text-ink-muted">
+    <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <div>
+        © 2026 <a href="https://github.com/botz-pillar" class="text-primary-bright hover:text-ink">Josh Botz</a> · MIT License
+      </div>
+      <div class="flex gap-6">
+        <a href="https://github.com/botz-pillar/NewClauder" class="hover:text-ink">GitHub</a>
+        <a href="https://www.skool.com/cloud-security-lab" class="hover:text-ink">Skool Community</a>
+        <a href="https://www.anthropic.com/legal/commercial-terms" class="hover:text-ink">Anthropic Terms</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Copy buttons
+    document.querySelectorAll('.copy-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var text = btn.getAttribute('data-clipboard');
+        navigator.clipboard.writeText(text).then(function () {
+          var original = btn.textContent;
+          btn.textContent = '✓ Copied';
+          btn.classList.add('copied');
+          setTimeout(function () {
+            btn.textContent = original;
+            btn.classList.remove('copied');
+          }, 1400);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
