@@ -4,11 +4,11 @@
   "description": "NewClauder — a friendly, role-aware first session for people brand-new to Claude Code. Built for IT and InfoSec folks new to AI agents.",
   "author": {
     "name": "Josh Botz",
-    "url": "https://github.com/botz-pillar"
+    "url": "https://github.com/joshbotz"
   },
   "license": "MIT",
-  "homepage": "https://github.com/botz-pillar/NewClauder",
-  "repository": "https://github.com/botz-pillar/NewClauder.git",
+  "homepage": "https://github.com/joshbotz/NewClauder",
+  "repository": "https://github.com/joshbotz/NewClauder.git",
   "keywords": [
     "claude-code",
     "claude-code-plugin",

@@ -7,12 +7,12 @@
 **Renames:**
 - Display name: Claude Code Tour → **NewClauder**
 - Technical identifier: `claude-code-tour` → `new-clauder` (kebab-case convention)
-- GitHub repo: `botz-pillar/claude-code-tour` → **`botz-pillar/NewClauder`**
+- GitHub repo: `joshbotz/claude-code-tour` → **`joshbotz/NewClauder`**
 - Skill directory: `skills/claude-code-tour/` → `skills/new-clauder/`
 
 **New install commands:**
 ```
-/plugin marketplace add botz-pillar/NewClauder
+/plugin marketplace add joshbotz/NewClauder
 /plugin install new-clauder@new-clauder
 ```
 

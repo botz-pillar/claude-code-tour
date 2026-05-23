@@ -159,7 +159,7 @@ If `/help` does nothing or just prints `/help` as text, you're probably in the w
 
 ## 8. Install this tour
 
-Before you install: this plugin is a folder of plain markdown instructions plus a couple of supporting reference files. It makes no network calls, adds no tools to Claude Code, and requests no additional permissions. The source is at [github.com/botz-pillar/NewClauder](https://github.com/botz-pillar/NewClauder) — every file is human-readable.
+Before you install: this plugin is a folder of plain markdown instructions plus a couple of supporting reference files. It makes no network calls, adds no tools to Claude Code, and requests no additional permissions. The source is at [github.com/joshbotz/NewClauder](https://github.com/joshbotz/NewClauder) — every file is human-readable.
 
 > **Standing rule for any Claude Code plugin: read it before you install it.** This plugin's source is public and every file is plain markdown. The same discipline applies to *every* plugin you'll consider going forward — third-party plugins can install tools, request permissions, or include scripts. Trust nothing you can't read. This is the single most valuable security habit for working with an agentic AI tool.
 
@@ -168,7 +168,7 @@ Two commands. **Run them one at a time.** Type the first, press Enter, wait for 
 ### First command — type this, then press Enter:
 
 ```
-/plugin marketplace add botz-pillar/NewClauder
+/plugin marketplace add joshbotz/NewClauder
 ```
 
 **You should see something like:** *"Marketplace 'new-clauder' added."* If you see anything else — an error, a red warning, nothing at all — copy the message and paste it back to Claude with *"what does this mean?"* — Claude is excellent at decoding its own errors.
@@ -304,13 +304,13 @@ You don't need any of this for the tour. Bookmark this section for the *day afte
 → `/plugin uninstall new-clauder`. Nothing else stays on your machine.
 
 **"Something is broken and the above didn't help."**
-→ [Open a GitHub issue](https://github.com/botz-pillar/NewClauder/issues) (need a free GitHub account — see [section 13](#13-helpful-links-for-beginners) if you don't have one yet), or **email josh@pillarsecurity.io** — you don't need GitHub.
+→ [Open a GitHub issue](https://github.com/joshbotz/NewClauder/issues) (need a free GitHub account — see [section 13](#13-helpful-links-for-beginners) if you don't have one yet), or **email josh@pillarsecurity.io** — you don't need GitHub.
 
 ---
 
 ## Privacy
 
-- **This plugin makes no network calls of its own.** It's a folder of markdown instructions that Claude reads when you start the tour. No analytics, no telemetry, no third-party services. The repo is public at [github.com/botz-pillar/NewClauder](https://github.com/botz-pillar/NewClauder) — every file is readable before you install.
+- **This plugin makes no network calls of its own.** It's a folder of markdown instructions that Claude reads when you start the tour. No analytics, no telemetry, no third-party services. The repo is public at [github.com/joshbotz/NewClauder](https://github.com/joshbotz/NewClauder) — every file is readable before you install.
 - **Your conversation with Claude is governed by Anthropic's terms.** The plugin doesn't change that — see the [Trust Center](https://trust.anthropic.com/) for data handling, retention, and zero-retention enterprise options.
 - **The tour writes one memory note at the end.** Here's exactly what gets written, structurally:
 
@@ -337,7 +337,7 @@ No conversation content. Delete the file any time from `~/.claude/memory/user_cl
 
 ## Feedback & contact
 
-- **Found a bug or have an idea?** [Open a GitHub issue](https://github.com/botz-pillar/NewClauder/issues).
+- **Found a bug or have an idea?** [Open a GitHub issue](https://github.com/joshbotz/NewClauder/issues).
 - **Never used GitHub before?** Email **josh@pillarsecurity.io** — happy to hear it. I read every message and try to reply within a week. If something is broken for you, you're not the only one — write me and I'll fix it.
 - **Want to share what you built during the tour?** Same email. I love seeing first-day artifacts.
 
@@ -349,6 +349,6 @@ MIT — see [LICENSE](./LICENSE). Use it, fork it, share it, remix it for your o
 
 ## Who made this
 
-[Josh Botz](https://github.com/botz-pillar) — cloud security practitioner, builder of [AI Cloud Security Lab](https://www.skool.com/cloud-security-lab), occasional writer of skills like this one.
+[Josh Botz](https://github.com/joshbotz) — cloud security practitioner working on AI agent security, occasional writer of skills like this one.
 
 If this helped you, the kindest thing you can do is tell one other person in IT or security who's struggling to get started with AI tools.
